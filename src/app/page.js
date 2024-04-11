@@ -142,7 +142,7 @@ export default function Home() {
 
       {img ? (<Image height={500} width={500} src={img} alt="nothing"/>):(null)}
 
-      {predictVal? (<p>value of cubic spine at {predictVal}</p>):(null)}
+      {predictVal? (<p>value of cubic spine at {predictNum} is {predictVal}</p>):(null)}
     </main>
   );
 }
