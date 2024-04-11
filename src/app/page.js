@@ -22,7 +22,7 @@ export default function Home() {
   const [data,setData] = useState({});
   const [img,setImg] = useState('');
 
-  const [predictNum, setPredictNum] = useState(0);
+  const [predictNum, setPredictNum] = useState('');
   const [predictVal, setPredictVal] = useState();
 
   const handleChange = (e) => {
@@ -95,12 +95,12 @@ export default function Home() {
 
   return (
     <main>
-      <textarea name="x" onChange={handleChange}></textarea>
-      <textarea name="y" onChange={handleChange}></textarea>
+      <textarea name="x" onChange={handleChange} placeholder="x inputs"></textarea>
+      <textarea name="y" onChange={handleChange} placeholder="y inputs"></textarea>
 
       <button onClick={Solve}>interpolate</button>
 
-      <input name="predictNum" type="number" step="any" value={predictNum} onChange={handlePredictNumChange}/>
+      <input name="predictNum" type="number" step="any" value={predictNum} onChange={handlePredictNumChange} placeholder="x value"/>
       <button onClick={Predict}>predict</button>
       
       
