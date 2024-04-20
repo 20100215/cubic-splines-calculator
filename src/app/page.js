@@ -1,160 +1,99 @@
-"use client"; 
-import Image from "next/image";
-import {useState, useEffect} from 'react';
-import axios from 'axios';
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+'use client';
+import { useState } from 'react';
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import Table from "./table";
 
-import { useToast } from "@/components/ui/use-toast"
+import axios from 'axios';
+import Image from "next/image";
+
+import Predict from "./predict";
+
+import { useToast } from "@/components/ui/use-toast";
 
 export default function Home() {
-  const { toast } = useToast();
-  const [formData, setFormData] = useState({
-    x: [],
-    y: []
-  });
+    const { toast } = useToast();
+	const [formData, setFormData] = useState({
+		x: [],
+		y: []
+	});
 
-  const [data,setData] = useState({});
-  const [img,setImg] = useState('');
+    const [data,setData] = useState({});
+    const [img,setImg] = useState('');
 
-  const [predictNum, setPredictNum] = useState(0);
-  const [predictVal, setPredictVal] = useState();
+    const handleChange = (e) => {
+        const fieldName = e.target.name;
+        const fieldValue = e.target.value.split(",").map(d => Number(d));
 
-  const [predictNumOutput, setPredictNumOutput] = useState(0);
-  const handleChange = (e) => {
-    const fieldName = e.target.name;
-    const fieldValue = e.target.value.split(",").map(d => Number(d));
-  
-    setFormData((prevState) => ({
-      ...prevState,
-      [fieldName]: fieldValue
-    }));
-  }
-
-  function handlePredictNumChange(e){
-    setPredictNum(e.target.value);
-  }
-
-  async function Solve() {
-    const dummyInput = {
-      'x': formData.x,
-      'y': formData.y
-    };
-    console.log(dummyInput);
-    const res = await
-    fetch("http://127.0.0.1:5555/solve",{
-      method: 'POST',
-      headers: {
-        'accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body:JSON.stringify(dummyInput)
-    });
-
-    const allPostsData = await res.json();
-    setData(allPostsData);
-    console.log(allPostsData);
-    if(!allPostsData.error){
-      Plot();
+        setFormData((prevState) => ({
+            ...prevState,
+            [fieldName]: fieldValue
+        }));
     }
-    else{
-      toast({
-        title: "Error!",
-        description: allPostsData.message,
-        variant: "destructive"
-      })  
-    }
-  }
 
-  function Plot(){
-    axios.get('http://127.0.0.1:5555/plot', {
-      headers: {
-      'accept': 'image/png',
-      },
-      responseType: "arraybuffer"
-    }).then(function (response) {
-      console.log("ohwow");
-      let base64ImageString = Buffer.from(response.data, 'binary').toString('base64');
-      let srcURL = "data:image/png;base64, " + base64ImageString;
-      setImg(srcURL);
-    });
-  } 
+    async function Solve() {
+        const userInput = {
+            'x': formData.x,
+            'y': formData.y
+        };
+        const res = await
+        fetch("http://127.0.0.1:5555/solve",{
+            method: 'POST',
+            headers: {
+                    'accept': 'application/json',
+                    'Content-Type': 'application/json',
+            },
+            body:JSON.stringify(userInput)
+        });
 
-  function Predict(){
-    axios.get('http://127.0.0.1:5555/predict', {
-      params: {
-        'val': predictNum
-      },
-      headers: {
-        'accept': 'application/json'
-      }
-    }).then(function (response) {
-        setPredictNumOutput(predictNum);
-        setPredictVal(response.data.y);
-        
-    })
-        .catch(function (error) {
-        console.log(error);
-    });
-  }
+        const allPostsData = await res.json();
+        setData(allPostsData);
 
-  return (
-    <main>
-      <textarea name="x" onChange={handleChange} placeholder="x inputs"></textarea>
-      <textarea name="y" onChange={handleChange} placeholder="y inputs"></textarea>
+        if(!allPostsData.error){
+            Plot();
+        }
+        else{
+            toast({
+                title: "Error!",
+                description: allPostsData.message,
+                variant: "destructive"
+            })  
+        }
+	}
 
-      <button onClick={Solve}>interpolate</button>
+    function Plot(){
+        axios.get('http://127.0.0.1:5555/plot', {
+            headers: {
+            'accept': 'image/png',
+            },
+            responseType: "arraybuffer"
+        }).then(function (response) {
+            let base64ImageString = Buffer.from(response.data, 'binary').toString('base64');
+            let srcURL = "data:image/png;base64, " + base64ImageString;
+            setImg(srcURL);
+        });
+    } 
 
-      <input name="predictNum" type="number" step="any" value={predictNum} onChange={handlePredictNumChange} placeholder="x value"/>
-      <button onClick={Predict}>predict</button>
-      
-      
-      
-      {data.status ? (
-        <Table>
-          <TableCaption>table thingy</TableCaption>
-          <TableHeader>
-            <TableRow>
-              <TableHead>a</TableHead>
-              <TableHead>b</TableHead>
-              <TableHead>c</TableHead>
-              <TableHead>d</TableHead>
-              <TableHead>x</TableHead>
-              <TableHead>y</TableHead>
-              <TableHead>h</TableHead>
-              <TableHead>S</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {data.table.map((numsObj, key) => {
-              return (
-                <TableRow key={key}>
-                  <TableCell>{numsObj.a}</TableCell>
-                  <TableCell>{numsObj.b}</TableCell>
-                  <TableCell>{numsObj.c}</TableCell>
-                  <TableCell>{numsObj.d}</TableCell>
-                  <TableCell>{numsObj.x}</TableCell>
-                  <TableCell>{numsObj.y}</TableCell>
-                  <TableCell>{numsObj.h}</TableCell>
-                  <TableCell>{numsObj.S}</TableCell>
-                </TableRow>
-              )
-            })}
-          </TableBody>
-        </Table>
-      )
-      :(null)}
-
-      {img ? (<Image height={500} width={500} src={img} alt="nothing"/>):(null)}
-
-      {predictVal? (<p>value of cubic spine at {predictNumOutput} is {predictVal}</p>):(null)}
-    </main>
-  );
+	return (
+		<main className='w-3/5 m-auto'>
+            <div className='my-4'>
+                <h2>Inputs</h2>    
+                <div>
+                    <Label htmlFor="x">x</Label>
+                    <Input id="x" name="x" onChange={handleChange} placeholder="separate each value with a comma(',')"/>
+                </div>
+                <div>
+                    <Label htmlFor="y">y</Label>
+                    <Input id="y" name="y" onChange={handleChange} placeholder="separate each value with a comma(',')"/>
+                </div>
+                <Button className="my-2 w-full" onClick={Solve}>Interpolate</Button>
+            </div>
+            <div className='my-4 flex'>
+                <Table data={data}/>
+                {img ? (<div><h2>Plotted Graph</h2><Image height={500} width={500} src={img} alt="nothing"/></div>):(null)}
+            </div>
+            <Predict />
+		</main>
+	);
 }
