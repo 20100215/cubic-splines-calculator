@@ -12,8 +12,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-export default function Home() {
+import { useToast } from "@/components/ui/use-toast"
 
+export default function Home() {
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     x: [],
     y: []
@@ -22,9 +24,10 @@ export default function Home() {
   const [data,setData] = useState({});
   const [img,setImg] = useState('');
 
-  const [predictNum, setPredictNum] = useState('');
+  const [predictNum, setPredictNum] = useState(0);
   const [predictVal, setPredictVal] = useState();
 
+  const [predictNumOutput, setPredictNumOutput] = useState(0);
   const handleChange = (e) => {
     const fieldName = e.target.name;
     const fieldValue = e.target.value.split(",").map(d => Number(d));
@@ -57,7 +60,17 @@ export default function Home() {
 
     const allPostsData = await res.json();
     setData(allPostsData);
-    Plot();
+    console.log(allPostsData);
+    if(!allPostsData.error){
+      Plot();
+    }
+    else{
+      toast({
+        title: "Error!",
+        description: allPostsData.message,
+        variant: "destructive"
+      })  
+    }
   }
 
   function Plot(){
@@ -66,27 +79,26 @@ export default function Home() {
       'accept': 'image/png',
       },
       responseType: "arraybuffer"
-  }).then(function (response) {
+    }).then(function (response) {
       console.log("ohwow");
       let base64ImageString = Buffer.from(response.data, 'binary').toString('base64');
       let srcURL = "data:image/png;base64, " + base64ImageString;
       setImg(srcURL);
-  })
-      .catch(function (error) {
-      console.log(error);
-  });
+    });
   } 
 
   function Predict(){
     axios.get('http://127.0.0.1:5555/predict', {
       params: {
-        'val': '4'
+        'val': predictNum
       },
       headers: {
         'accept': 'application/json'
       }
     }).then(function (response) {
+        setPredictNumOutput(predictNum);
         setPredictVal(response.data.y);
+        
     })
         .catch(function (error) {
         console.log(error);
@@ -142,7 +154,7 @@ export default function Home() {
 
       {img ? (<Image height={500} width={500} src={img} alt="nothing"/>):(null)}
 
-      {predictVal? (<p>value of cubic spine at {predictNum} is {predictVal}</p>):(null)}
+      {predictVal? (<p>value of cubic spine at {predictNumOutput} is {predictVal}</p>):(null)}
     </main>
   );
 }
