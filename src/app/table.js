@@ -9,10 +9,9 @@ import {
     TableRow,
 } from "@/components/ui/table";
 
-function table({data}) {
-  return (
+function table({resData}) {
+    return (
     <div className='overflow-x-auto grow'>
-        {data.status ? (
             <div>
                 <h2>Table</h2>
                 <Table>
@@ -30,7 +29,7 @@ function table({data}) {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {data.table.map((numsObj, key) => {
+                    {resData.table.map((numsObj, key) => {
                     return (
                         <TableRow key={key}>
                         <TableCell>{numsObj.a}</TableCell>
@@ -47,8 +46,6 @@ function table({data}) {
                 </TableBody>
                 </Table>
             </div>
-        )
-        :(null)}
     </div>
   )
 }
