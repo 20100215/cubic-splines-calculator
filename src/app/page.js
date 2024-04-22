@@ -106,6 +106,7 @@ export default function Home() {
                     <div className='grid content-around mr-2'>
                         <Label className='mb-3'>x</Label>
                         <Label className='mb-3'>y</Label>
+                        <Label className='mb-3'></Label>
                     </div>
 
                     {formData.map((input, ndx) =>{
@@ -121,7 +122,7 @@ export default function Home() {
                                     setFormData(currentInput => produce(currentInput, v =>{v[ndx].y = yInput;}));
                                 }} value={input.y} onFocus={handleFocus}/>    
 
-                                {input.id != 0?(<Button name="" className="fixed w-16 mr-2 mb-2" key={input.id} variant="destructive" size="icon" tabIndex="-1" onClick={() => handleDelete(input)}>-</Button>):(null)}
+                                {input.id != 0?(<Button name="" className="w-16 mr-2 mb-2" key={input.id} variant="destructive" size="icon" tabIndex="-1" onClick={() => handleDelete(input)}>-</Button>):(null)}
                             </div>
                         )
                     })}
