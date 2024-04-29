@@ -98,11 +98,39 @@ export default function Home() {
         });
     } 
 
+    const [predictNum, setPredictNum] = useState(0);
+    const [predictVal, setPredictVal] = useState();
+
+    const [predictNumOutput, setPredictNumOutput] = useState(0);
+
+    function handlePredictNumChange(e){
+        setPredictNum(e.target.value);
+    }
+
+    function Predict(){
+        axios.get('http://127.0.0.1:5555/predict', {
+            params: {
+                'val': predictNum
+            },
+            headers: {
+                'accept': 'application/json'
+            }
+        }).then(function (response) {
+            setPredictNumOutput(predictNum);
+            setPredictVal(response.data.y);
+            Plot();
+            
+        })
+            .catch(function (error) {
+            console.log(error);
+        });
+    }
+    
 	return (
 		<main className='w-3/5 m-auto'>
-            <div className='my-4'>
-                <h2>Inputs</h2>    
-                <div className='flex mb-12'>
+            <div className='my-8'>
+                <h2 className='font-bold text-xl'>Inputs</h2>    
+                <div className='flex'>
                     <div className='grid content-around mr-2'>
                         <Label className='mb-4'>x</Label>
                         <Label className='mb-3'>y</Label>
@@ -112,7 +140,7 @@ export default function Home() {
                     {formData.map((input, ndx) =>{
                         return (
                             <div key={input.id}>
-                                <Input className='w-16 mr-2 mb-2' onChange={e => {
+                                <Input className='w-16 mr-2 mb-2 mt-2' onChange={e => {
                                     const xInput = e.target.value;
                                     setFormData(currentInput => produce(currentInput, v =>{v[ndx].x = xInput;}));
                                 }} value={input.x} onFocus={handleFocus}/>
@@ -135,12 +163,31 @@ export default function Home() {
             </div>
 
             {resData.status == "Success" ?(
-                <div className="">
-                    <div className='my-4 flex'>
-                        <Table resData={resData}/>
-                        {img ? (<div><h2>Plotted Graph</h2><Image height={500} width={500} src={img} alt="nothing"/></div>):(null)}
+                <div className="my-8">
+                    <div className='my-8'>
+                        <h2 className='font-bold text-xl'>Predict</h2>
+                        <Label htmlFor="predictNum">Value of a Cubic Spine at x</Label>
+                        <div>
+                            <Input name="predictNum" type="number" step="any" value={predictNum} onChange={handlePredictNumChange} placeholder="x"/>
+                        </div>
+                        {predictVal? (<p>value of cubic spine at {predictNumOutput} is <span className='font-medium text-red-600'>{predictVal}</span></p> ):(null)}
+                        <Button className="w-full my-2" onClick={Predict}>Predict</Button>
                     </div>
-                    <Predict />
+
+                    <div className='my-8 flex'>
+                        <div>
+                            <Table resData={resData}/>
+                            <div>
+                                <h2 className='font-bold text-xl'>Functions</h2>
+                                {resData.table.map((numsObj, key) => {
+                                    return (
+                                        <p key={key}>g{key}(x)</p>
+                                    )
+                                    })}
+                            </div>
+                        </div>
+                        {img ? (<div><h2 className='font-bold text-xl'>Plotted Graph</h2><Image height={500} width={500} src={img} alt="nothing"/></div>):(null)}
+                    </div>
                 </div>
             ):(null)}
 

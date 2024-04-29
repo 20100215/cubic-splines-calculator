@@ -11,11 +11,10 @@ import {
 
 function table({resData}) {
     return (
-    <div className='overflow-x-auto grow'>
-            <div>
-                <h2>Table</h2>
-                <Table>
-                
+        <div className='overflow-x-auto grow'>
+        
+            <h2 className='font-bold text-xl'>Table</h2>
+            <Table>
                 <TableHeader>
                     <TableRow>
                     <TableHead>a</TableHead>
@@ -44,10 +43,9 @@ function table({resData}) {
                     )
                     })}
                 </TableBody>
-                </Table>
-            </div>
-    </div>
-  )
+            </Table> 
+        </div>
+    )
 }
 
 export default table
