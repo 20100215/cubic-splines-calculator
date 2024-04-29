@@ -177,11 +177,11 @@ export default function Home() {
                     <div className='my-8 flex'>
                         <div>
                             <Table resData={resData}/>
-                            <div>
+                            <div className='my-8'>
                                 <h2 className='font-bold text-xl'>Functions</h2>
                                 {resData.table.map((numsObj, key) => {
                                     return (
-                                        <p key={key}>g{key}(x)</p>
+                                        <p className="italic my-1" key={key}>g<sub>{key}</sub>(x) = {numsObj.a}(x-{numsObj.x})<sup>3</sup> + {numsObj.b}(x-{numsObj.x})<sup>2</sup> + {numsObj.c}(x-{numsObj.x}) + {numsObj.d}</p>
                                     )
                                     })}
                             </div>
