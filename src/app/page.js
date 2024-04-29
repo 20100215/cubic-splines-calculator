@@ -97,16 +97,16 @@ export default function Home() {
             setImg(srcURL);
         });
     } 
-5.634
+
 	return (
 		<main className='w-3/5 m-auto'>
             <div className='my-4'>
                 <h2>Inputs</h2>    
                 <div className='flex mb-12'>
                     <div className='grid content-around mr-2'>
-                        <Label className='mb-3'>x</Label>
+                        <Label className='mb-4'>x</Label>
                         <Label className='mb-3'>y</Label>
-                        <Label className='mb-3'></Label>
+                        <Label className=''></Label>
                     </div>
 
                     {formData.map((input, ndx) =>{
