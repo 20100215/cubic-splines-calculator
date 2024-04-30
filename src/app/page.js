@@ -99,6 +99,7 @@ export default function Home() {
     } 
 
     const [predictNum, setPredictNum] = useState(0);
+    const [predictG, setPredictG] = useState();
     const [predictVal, setPredictVal] = useState();
 
     const [predictNumOutput, setPredictNumOutput] = useState(0);
@@ -116,9 +117,21 @@ export default function Home() {
                 'accept': 'application/json'
             }
         }).then(function (response) {
-            setPredictNumOutput(predictNum);
-            setPredictVal(response.data.y);
-            Plot();
+            if(response.data.status == "Success"){
+                setPredictNumOutput(predictNum);
+                setPredictVal(response.data.y);
+                setPredictG(response.data.g);
+                Plot();
+            }
+            else{
+                toast({
+                    title: "Error!",
+                    description: response.data.message,
+                    variant: "destructive"
+                })  
+            }
+
+            
             
         })
             .catch(function (error) {
@@ -170,12 +183,12 @@ export default function Home() {
                         <div>
                             <Input name="predictNum" type="number" step="any" value={predictNum} onChange={handlePredictNumChange} placeholder="x"/>
                         </div>
-                        {predictVal? (<p>value of cubic spine at {predictNumOutput} is <span className='font-medium text-red-600'>{predictVal}</span></p> ):(null)}
+                        {predictVal? (<p className='font-medium text-red-600'>g<sub>{predictG}</sub>({predictNumOutput}) = {predictVal}</p> ):(null)}
                         <Button className="w-full my-2" onClick={Predict}>Predict</Button>
                     </div>
 
                     <div className='my-8 flex'>
-                        <div>
+                        <div className=' overflow-x-auto grow'>
                             <Table resData={resData}/>
                             <div className='my-8'>
                                 <h2 className='font-bold text-xl'>Functions</h2>
