@@ -155,20 +155,19 @@ export default function Home() {
     }
     
 	return (
-		<main className='w-3/5 m-auto'>
-            <div className='my-8'>
+		<main className='w-5/6 m-auto flex my-12 gap-5'>
+            <div className='bg-white p-5 rounded-lg'>
                 <h2 className='font-bold text-xl'>Inputs</h2>    
-                <div className='flex'>
-                    <div className='grid content-around mr-2'>
-                        <Label className='mb-4'>x</Label>
-                        <Label className='mb-3'>y</Label>
-                        <Label className=''></Label>
+                <div className='flex flex-col'>
+                    <div className='flex'>
+                        <Label className='mx-7 my-2'>x</Label>
+                        <Label className='mx-7 my-2'>y</Label>
                     </div>
 
                     {formData.map((input, ndx) =>{
                         return (
-                            <div key={input.id}>
-                                <Input className='w-16 mr-2 mb-2 mt-2' onChange={e => {
+                            <div className='flex' key={input.id}>
+                                <Input className='w-16 mr-2 mb-2' onChange={e => {
                                     const xInput = e.target.value;
                                     setFormData(currentInput => produce(currentInput, v =>{v[ndx].x = xInput;}));
                                 }} value={input.x} onFocus={handleFocus}/>
@@ -178,34 +177,34 @@ export default function Home() {
                                     setFormData(currentInput => produce(currentInput, v =>{v[ndx].y = yInput;}));
                                 }} value={input.y} onFocus={handleFocus}/>    
 
-                                {input.id != 0?(<Button name="" className="w-16 mr-2 mb-2" key={input.id} variant="destructive" size="icon" tabIndex="-1" onClick={() => handleDelete(input)}>-</Button>):(null)}
+                                {input.id > 3?(<Button name="" className="w-16 mr-2 mb-2" key={input.id} variant="destructive" size="icon" tabIndex="-1" onClick={() => handleDelete(input)}>-</Button>):(null)}
                             </div>
                         )
                     })}
 
-                    <div className='grid content-around'>
+                    <div className='m-auto'>
                         <Button size="icon" onClick={addInput}>+</Button>
                     </div>
                 </div>
                 <Button className="my-2 w-full" onClick={Solve}>Interpolate</Button>
+
+                {resData.status == "Success" ?(<div className='my-8'>
+                    <h2 className='font-bold text-xl'>Predict</h2>
+                    <Label htmlFor="predictNum">Value of a Cubic Spine at x</Label>
+                    <div>
+                        <Input name="predictNum" type="number" step="any" value={predictNum} onChange={handlePredictNumChange} placeholder="x"/>
+                    </div>
+                    {predictVal? (<p className='font-medium text-red-600'>g<sub>{predictG}</sub>({predictNumOutput}) = {predictVal}</p> ):(null)}
+                    <Button className="w-full my-2" onClick={Predict}>Predict</Button>
+                </div>):(null)}
             </div>
 
             {resData.status == "Success" ?(
-                <div className="my-8">
-                    <div className='my-8'>
-                        <h2 className='font-bold text-xl'>Predict</h2>
-                        <Label htmlFor="predictNum">Value of a Cubic Spine at x</Label>
-                        <div>
-                            <Input name="predictNum" type="number" step="any" value={predictNum} onChange={handlePredictNumChange} placeholder="x"/>
-                        </div>
-                        {predictVal? (<p className='font-medium text-red-600'>g<sub>{predictG}</sub>({predictNumOutput}) = {predictVal}</p> ):(null)}
-                        <Button className="w-full my-2" onClick={Predict}>Predict</Button>
-                    </div>
-
-                    <div className='my-8 flex'>
-                        <div className=' overflow-x-auto grow'>
+                <div className="bg-white grow p-5 h-full rounded-lg">
+                    <div className='flex'>
+                        <div className='flex flex-col justify-between overflow-x-auto grow'>
                             <Table resData={resData}/>
-                            <div className='my-8'>
+                            <div className=''>
                                 <h2 className='font-bold text-xl'>Functions</h2>
                                 {resData.table.map((numsObj, key) => {
                                     return (
