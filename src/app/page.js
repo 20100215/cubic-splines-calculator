@@ -19,6 +19,21 @@ export default function Home() {
         id: 0,
 		x: 0,
 		y: 0
+	},
+    {
+        id: 1,
+		x: 0,
+		y: 0
+	},
+    {
+        id: 2,
+		x: 0,
+		y: 0
+	},
+    {
+        id: 3,
+		x: 0,
+		y: 0
 	}]);
 
     const [resData,setResData] = useState({});
