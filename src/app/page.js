@@ -64,8 +64,6 @@ export default function Home() {
             'x': formData.map(input => parseFloat(input.x)),
             'y': formData.map(input => parseFloat(input.y))
         };
-
-        console.log(userInput);
         
         const res = await
         fetch("http://127.0.0.1:5555/solve",{
@@ -79,6 +77,7 @@ export default function Home() {
 
         const allPostsData = await res.json();
         setResData(allPostsData);
+        console.log(allPostsData);
         if(!allPostsData.error){
             if(allPostsData.status == "Success"){
                 Plot();
@@ -200,8 +199,21 @@ export default function Home() {
             </div>
 
             {resData.status == "Success" ?(
-                <div className="bg-white grow p-5 h-full rounded-lg">
-                    <div className='flex'>
+                <div className="grow h-full grid gap-5">
+                    
+                    <div className="bg-white p-5 rounded-lg">
+                        <h2 className='font-bold text-xl'>Matrices</h2>
+                        <div className='flex gap-5'>
+                            <div>
+                                <h3 className='font-bold text-x'>A</h3>
+                            </div>
+                            <div>
+                                <h3 className='font-bold text-x'>B</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className='flex bg-white p-5 rounded-lg'>
                         <div className='flex flex-col justify-between overflow-x-auto grow'>
                             <Table resData={resData}/>
                             <div className=''>
