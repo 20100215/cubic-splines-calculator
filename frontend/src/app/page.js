@@ -120,7 +120,9 @@ export default function Home() {
     const [predictNumOutput, setPredictNumOutput] = useState(0);
 
     function handlePredictNumChange(e){
-        setPredictNum(e.target.value);
+            console.log(e.target.value);
+            setPredictNum(e.target.value);
+        
     }
 
     function Predict(){
@@ -167,12 +169,12 @@ export default function Home() {
                     {formData.map((input, ndx) =>{
                         return (
                             <div className='flex' key={input.id}>
-                                <Input className='w-16 mr-2 mb-2' onChange={e => {
+                                <Input type='number' pattern="^\d*(\.\d{0,2})?$" className='w-16 mr-2 mb-2' onChange={e => {
                                     const xInput = e.target.value;
                                     setFormData(currentInput => produce(currentInput, v =>{v[ndx].x = xInput;}));
                                 }} value={input.x} onFocus={handleFocus}/>
 
-                                <Input className='w-16 mr-2 mb-2' onChange={e => {
+                                <Input type='number' pattern="^\d*(\.\d{0,2})?$" className='w-16 mr-2 mb-2' onChange={e => {
                                     const yInput = e.target.value;
                                     setFormData(currentInput => produce(currentInput, v =>{v[ndx].y = yInput;}));
                                 }} value={input.y} onFocus={handleFocus}/>    
@@ -192,7 +194,7 @@ export default function Home() {
                     <h2 className='font-bold text-xl'>Predict</h2>
                     <Label htmlFor="predictNum">Value of a Cubic Spine at x</Label>
                     <div>
-                        <Input name="predictNum" type="number" step="any" value={predictNum} onChange={handlePredictNumChange} placeholder="x"/>
+                        <Input name="predictNum" type="number" step=".01" value={predictNum} onInput={handlePredictNumChange}  placeholder="x"/>
                     </div>
                     {predictVal? (<p className='font-medium text-red-600'>g<sub>{predictG}</sub>({predictNumOutput}) = {predictVal}</p> ):(null)}
                     <Button className="w-full my-2" onClick={Predict}>Predict</Button>
