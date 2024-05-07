@@ -1,0 +1,14 @@
+version: '3.1'
+services:
+  mat5101-g1-frontend:
+    build:
+      context: /frontend/
+      dockerfile: frontend.dockerfile
+    ports:
+      - 3000:3000
+  mat5101-g1-backend:
+    build:
+      context: /backend/
+      dockerfile: backend.dockerfile
+    ports:
+      - 5555:5555
