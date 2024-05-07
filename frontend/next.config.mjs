@@ -14,6 +14,14 @@ const nextConfig = {
                 ]
             }
         ]
+    },
+    async rewrites() {
+        return [
+            {
+                source: "/guide",
+                destination: "/guide.html"
+            }
+        ]
     }
 }
 

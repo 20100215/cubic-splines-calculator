@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 function Header() {
@@ -7,11 +8,12 @@ function Header() {
             <div className="ms-2">
                 <span className="text-xl font-medium text-white">Group 1 Gwapo - Cubic Splines</span>
             </div>
-            <a href='https://czarivan.notion.site/Cubic-Splines-9f7a5525d527499fa06e20ae0b091afd'
+            <Link href={"/guide"}
               className='inline-block p-2 bg-yellow-200 rounded-lg ml-7'
-              target='_blank'>
+              target='_blank'
+            >
               Guide
-            </a>
+            </Link>
         </div>
     </nav>
   )
