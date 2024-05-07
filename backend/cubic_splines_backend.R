@@ -180,6 +180,8 @@ function() {
   # Highlight the predicted point, if exists
   if(!is.null(predx)){
     points(predx,predy,col="red",pch=19)
+    abline(v=predx,col="red",lty=3)
+    abline(h=predy,col="red",lty=3)
   }
   
   # Plot the bounds
