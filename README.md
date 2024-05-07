@@ -9,11 +9,11 @@
 - Frontend/UI: Next.JS
 - Backend/Server: R Plumber
 
-## Features
+## Features/Endpoints
 
-- **Solve:** Creates the cubic spline polynomials from a given set of points that can be used for interpolation. At least four (4) points are needed, and that all the x-values should be unique.
-- **Plot:** Plots the formulated cubic spline polynomials based on the given set of points.
-- **Predict:** Interpolates the cubic spline polynomials on a given value of x within the interval of the given points, and updates the graph showing the location of the predicted point.
+- **/Solve** Creates the cubic spline polynomials from a given set of points that can be used for interpolation. At least four (4) points are needed, and all the x-values should be unique.
+- **/Plot** Plots the formulated cubic spline polynomials based on the given set of points. Can only be called after /Solve is called. 
+- **/Predict** Interpolates the cubic spline polynomials on a given value of x within the interval of the given points, and updates the graph showing the location of the predicted point. Can only be called after /Solve is called.
 
 ## System Requirements
 
