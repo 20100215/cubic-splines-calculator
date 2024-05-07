@@ -8,6 +8,7 @@ import { useToast } from "@/components/ui/use-toast";
 import axios from 'axios';
 
 import Table from "./table";
+import Matrix from "./matrix";
 import Image from "next/image";
 import Predict from "./predict";
 
@@ -200,22 +201,21 @@ export default function Home() {
 
             {resData.status == "Success" ?(
                 <div className="grow h-full grid gap-5">
-                    
-                    <div className="bg-white p-5 rounded-lg">
-                        <h2 className='font-bold text-xl'>Matrices</h2>
-                        <div className='flex gap-5'>
-                            <div>
-                                <h3 className='font-bold text-x'>A</h3>
+                    <div className='flex bg-white p-5 rounded-lg gap-10'>
+                        <div className='flex flex-col justify-between overflow-x-auto grow gap'>
+                            <h2 className='font-bold text-xl'>Matrices</h2>
+                            <div className='flex gap-20 my-5'>
+                                <div>
+                                    <h3 className='font-bold text-x'>A</h3>
+                                    <Matrix data={resData.A}/>
+                                </div>
+                                <div>
+                                    <h3 className='font-bold text-x'>B</h3>
+                                    <Matrix data={resData.B}/>
+                                </div>
                             </div>
-                            <div>
-                                <h3 className='font-bold text-x'>B</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className='flex bg-white p-5 rounded-lg'>
-                        <div className='flex flex-col justify-between overflow-x-auto grow'>
                             <Table resData={resData}/>
+
                             <div className=''>
                                 <h2 className='font-bold text-xl'>Functions</h2>
                                 {resData.table.map((numsObj, key) => {
