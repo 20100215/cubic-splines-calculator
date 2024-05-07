@@ -11,7 +11,7 @@
 
 ## Features
 
-- **Solve:** Creates the cubic spline polynomials from a given set of points that can be used for interpolation.
+- **Solve:** Creates the cubic spline polynomials from a given set of points that can be used for interpolation. At least four (4) points are needed, and that all the x-values should be unique.
 - **Plot:** Plots the formulated cubic spline polynomials based on the given set of points.
 - **Predict:** Interpolates the cubic spline polynomials on a given value of x within the interval of the given points, and updates the graph showing the location of the predicted point.
 
@@ -27,3 +27,11 @@ Once Docker Desktop is downloaded, run the system using the `start.bat` file or 
 ```
 docker compose up --build
 ```
+The frontend and backend areas of the app will begin building. This will last for around 3-5 minutes.
+
+Once the following line pops up:
+```
+mat5101-g1-frontend-1 |  ✔ Ready in x.x s
+```
+
+You may now access the built application by typing http://localhost:3000 in the address bar of your browser.
