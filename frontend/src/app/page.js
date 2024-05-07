@@ -9,6 +9,7 @@ import axios from 'axios';
 
 import Table from "./table";
 import Matrix from "./matrix";
+import S from "./s";
 import Image from "next/image";
 import Predict from "./predict";
 
@@ -214,6 +215,10 @@ export default function Home() {
                                 <div>
                                     <h3 className='font-bold text-x'>B</h3>
                                     <Matrix data={resData.B}/>
+                                </div>
+                                <div>
+                                    <h3 className='font-bold text-x'>S</h3>
+                                    <S data={resData.S} />
                                 </div>
                             </div>
                             <Table resData={resData}/>
