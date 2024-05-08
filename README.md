@@ -1,5 +1,9 @@
 # MAT 5101 - Cubic Splines Application
 
+![image](https://github.com/OG-Habit/mat5101/assets/84717650/38ca659a-5597-473f-9172-193b9c231aa2)
+
+![image](https://github.com/OG-Habit/mat5101/assets/84717650/ce650a97-e2c5-4833-94ed-81bc92f336ed)
+
 ## Developers
 
 - Wayne Matthew Dayata, Ivan Ric Woogue, Raymond Anthony Aya-Ay
@@ -35,3 +39,7 @@ mat5101-g1-frontend |  ✔ Ready in x.x s
 ```
 
 You may now access the built application by typing [http://localhost:3000](http://localhost:3000) in the address bar of your browser.
+
+
+
+
