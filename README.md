@@ -27,22 +27,22 @@ Link to the download site is https://docs.docker.com/desktop/install/windows-ins
 
 ## Running the System
 
-Clone the application by typing the following command line using Git Bash or Command Prompt:
+1. Clone the application by typing the following command line using Git Bash or Command Prompt:
 
 ```
 git clone https://github.com/20100215/cubic-splines-calculator.git
 ```
 
-Once Docker Desktop is downloaded, run the system **using the `start.bat` file** found in the root directory.
+2. Once Docker Desktop is downloaded, run the system **using the `start.bat` file** found in the root directory.
 
-The frontend and backend areas of the app will begin building. This will last for around 3-5 minutes.
+3. The frontend and backend areas of the app will begin building. This will last for around 3-5 minutes.
 
-Once all the executions are complete, the following final line pops up:
+4. Once all the executions are complete, the following final line pops up:
 ```
 final-project-mat5101-g1-frontend |  ✔ Ready in x.x s
 ```
 
-You may now access the built application by typing [http://localhost:3000](http://localhost:3000) in the address bar of your browser.
+5. You may now access the built application by typing [http://localhost:3000](http://localhost:3000) in the address bar of your browser. Enjoy!
 
 
 
