@@ -33,7 +33,7 @@ Clone the application by typing the following command line using Git Bash or Com
 git clone https://github.com/20100215/cubic-splines-calculator.git
 ```
 
-Once Docker Desktop is downloaded, run the system using the `start.bat` file or execute the following command:
+Once Docker Desktop is downloaded, run the system **using the `start.bat` file** or execute the following command:
 ```
 docker compose up --build
 ```
