@@ -27,6 +27,12 @@ Link to the download site is https://docs.docker.com/desktop/install/windows-ins
 
 ## Running the System
 
+Clone the application by typing the following command line using Git Bash or Command Prompt:
+
+```
+git clone https://github.com/20100215/cubic-splines-calculator.git
+```
+
 Once Docker Desktop is downloaded, run the system using the `start.bat` file or execute the following command:
 ```
 docker compose up --build
