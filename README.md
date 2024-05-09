@@ -6,7 +6,7 @@
 
 ## Developers
 
-- Wayne Matthew Dayata, Ivan Ric Woogue, Raymond Anthony Aya-Ay
+- Wayne Matthew Dayata, Ivan Ric Woogue, Raymond Anthony Aya-ay
 
 ## Technologies 
 
@@ -41,7 +41,7 @@ The frontend and backend areas of the app will begin building. This will last fo
 
 Once all the executions are complete, the following final line pops up:
 ```
-mat5101-g1-frontend |  ✔ Ready in x.x s
+final-project-mat5101-g1-frontend |  ✔ Ready in x.x s
 ```
 
 You may now access the built application by typing [http://localhost:3000](http://localhost:3000) in the address bar of your browser.
